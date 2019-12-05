@@ -4,6 +4,8 @@ const userData = require("./userDb.js");
 
 const router = express.Router();
 
+const postData = require("../posts/postDb.js")
+
 router.post('/', validateUser, (req, res) => {
   const updateData = req.body; 
   
@@ -21,11 +23,11 @@ router.post('/', validateUser, (req, res) => {
 });
 
 
-//*************BROKEN*************
+
 router.post('/:id/posts', (req, res) => {
   const updateData = req.body; 
   
-  userData.insert(updateData)
+  postData.insert(updateData)
     .then(stuff => {
         res.status(201).json(stuff);
     })
@@ -36,7 +38,7 @@ router.post('/:id/posts', (req, res) => {
         });
     });
 });
-//*************BROKEN*************
+
 
 
 router.get('/', (req, res) => {
@@ -106,7 +108,7 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
 
   const updatedPost = req.body;
-
+  
   userData.update(req.params.id, updatedPost)
     .then(updated => {
         if (updated) {
